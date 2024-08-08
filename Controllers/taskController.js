@@ -129,3 +129,16 @@ exports.getCompletedTask = async (req, res) => {
     }
 
 }
+
+// to get all the important tasks
+exports.getImportantTasks = async (req, res) => {
+
+    try {
+        const userId = req.payload
+        const importantTasks = await tasks.find({ userId: userId, important: true });
+        res.json(importantTasks);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+
+}

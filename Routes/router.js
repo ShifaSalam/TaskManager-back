@@ -17,5 +17,6 @@ router.put('/editTask/:tid',jwtMiddleware,taskController.editTask)
 router.delete('/deleteTask/:tid',jwtMiddleware,taskController.removeTask)
 router.put('/completeTask/:id',jwtMiddleware,taskController.completeTask)    //for task completion update
 router.get('/completedTasks',jwtMiddleware,taskController.getCompletedTask)  //to get completed tasks
+router.get('/impTasks',jwtMiddleware,taskController.getImportantTasks)       //to get important tasks
 
 module.exports=router
