@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 
+// create task model
 const taskSchema = new mongoose.Schema({
     taskTitle: {
         type: String,
@@ -29,6 +30,7 @@ const taskSchema = new mongoose.Schema({
     }
 })
 
+// define model
 const tasks = mongoose.model('tasks', taskSchema)
 
 module.exports = tasks

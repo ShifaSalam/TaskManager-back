@@ -1,5 +1,6 @@
 const mongoose=require('mongoose')
 
+// create user schema
 const userSchema=new mongoose.Schema({
     username:{
         type:String,
@@ -16,6 +17,8 @@ const userSchema=new mongoose.Schema({
     }
 })
 
+// define model
 const users=mongoose.model('users',userSchema)
 
+// export model
 module.exports=users

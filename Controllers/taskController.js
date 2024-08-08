@@ -4,6 +4,7 @@ const tasks = require('../Models/taskModel')
 
 // Create New Task
 exports.addTask = async (req, res) => {
+    // destructuring
     const { taskTitle, description, important, isCompleted, date } = req.body
     const userId = req.payload
 
@@ -13,6 +14,7 @@ exports.addTask = async (req, res) => {
             res.status(406).json("Task already Added!")
         }
         else {
+            // if not existing task, create another object
             const newTask = new tasks({
                 taskTitle, description, important, isCompleted, date: new Date(date), userId
             })
@@ -27,7 +29,7 @@ exports.addTask = async (req, res) => {
     }
 }
 
-// Get All Tasks for one user
+// Get All Tasks for a specific user
 exports.allTasks = async (req, res) => {
 
     try {
@@ -42,10 +44,12 @@ exports.allTasks = async (req, res) => {
     } catch (err) {
         res.status(400).json(err)
     }
+
 }
 
 // Specific Task Details
 exports.taskDetail = async (req, res) => {
+
     const { tid } = req.params
     const userId = req.payload
 
@@ -81,7 +85,7 @@ exports.editTask = async (req, res) => {
     }
 }
 
-// remove a task
+// to delete a task
 exports.removeTask = async (req, res) => {
     const { tid } = req.params
     try {
@@ -94,34 +98,34 @@ exports.removeTask = async (req, res) => {
     }
 }
 
-
+// to update the task completion
 exports.completeTask = async (req, res) => {
-    const { id } = req.params;
-    const { isCompleted } = req.body;
-    console.log(id)
+    const { id } = req.params
+    const { isCompleted } = req.body
     try {
-        const task = await tasks.findByIdAndUpdate(id, { isCompleted }, { new: true });
-        console.log(task)
-
+        const task = await tasks.findByIdAndUpdate(id, { isCompleted }, { new: true })
         if (!task) {
-            return res.status(404).json({ message: 'Task not found' });
+            res.status(404).json('Task not found');
         }
-
-        res.status(200).json(task);
+        else{
+            res.status(200).json(task);
+        }
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Server error' });
+        res.status(500).json(error);
     }
+
 }
 
-
+// to get all the completed tasks
 exports.getCompletedTask = async (req, res) => {
 
     try {
         const userId = req.payload
-        const completedTasks = await tasks.find({userId:userId, isCompleted: true });
+        const completedTasks = await tasks.find({ userId: userId, isCompleted: true });
         res.json(completedTasks);
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        res.status(500).json(err);
     }
+
 }

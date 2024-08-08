@@ -2,7 +2,9 @@ const users=require('../Models/userModel')
 const jwt=require('jsonwebtoken')
 
 
+// REGISTRATION
 exports.userRegister=async(req,res)=>{
+    // destructure details from request body
     const {username,password,email}=req.body
     try{
         const existingUser=await users.findOne({email})
@@ -11,6 +13,7 @@ exports.userRegister=async(req,res)=>{
             console.log(existingUser)
         }
         else{
+            // if not existing user, creating new user object
             const newUser=new users({
                 username,password,email
             })
@@ -23,6 +26,7 @@ exports.userRegister=async(req,res)=>{
     }
 }
 
+// LOGIN
 exports.userLogin=async(req,res)=>{
     try{
         const{email,password}=req.body
