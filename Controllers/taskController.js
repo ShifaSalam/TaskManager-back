@@ -20,7 +20,6 @@ exports.addTask = async (req, res) => {
             })
             await newTask.save()
             res.status(200).json(newTask)
-            console.log(userId)
         }
     }
     catch (err) {
